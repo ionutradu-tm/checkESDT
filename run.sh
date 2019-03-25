@@ -1,16 +1,7 @@
 #!/bin/bash
 
 pushd $WERCKER_SOURCE_DIR
-BODY=`git log -1`
-
-echo "%N"
-git log -1 --pretty='%N'
-
-echo "%s"
-git log -1 --pretty='%s'
-
-echo "Body"
-echo $BODY
+BODY=`git log -1 --pretty='%s'`
 
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
