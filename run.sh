@@ -1,15 +1,9 @@
 #!/bin/bash
 
 pushd $WERCKER_SOURCE_DIR
-PR=`git log -1 --pretty=format:"%s"`
 BODY=`git log -1 --pretty=format:"%b"`
 
-echo $PR
-echo $BODY
-echo "git log"
-git log -1
-
-BRANCH=$(basename `echo $PR| cut -d\/ -f2-`)
+BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
 BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
