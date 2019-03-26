@@ -7,7 +7,7 @@ BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
 BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
-if [[ ! $BRANCH =~ ^ESDT-[0-9]+$ ]]; then
+if [[ ! $BRANCH =~ ^ESDT-[0-9]+$ ]] && [[ $BRANCH != "master ]] && [[ ! $BRANCH =~ ^release-*$ ]]; then
         echo "Branch $BRANCH not valid"
         echo "The format should be ESDT-[0-9]+"
         exit 1
