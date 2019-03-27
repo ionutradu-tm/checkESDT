@@ -6,7 +6,7 @@
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
 BRANCH="adfdfa/hotfix/esdt-123a"
-BRANCH=`basename $BRANCH`
+BRANCH=4(basename $BRANCH)
 BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
 CHECK_BRANCH=1
