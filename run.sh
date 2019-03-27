@@ -24,13 +24,11 @@ if [[ $NR_ESDT != 0 ]];
          else
              echo -e "Found non valid ESDT. The format should be ESDT-[0-9]+"
              echo $BODY
-             exit 0
        fi
    else
        if [[ $CHECK_BRANCH == 1 ]];
           then
              echo "Found invalid branch $BRANCH and no valid message"
              echo "The format should be ESDT-[0-9]+"
-             exit 0
        fi
 fi
