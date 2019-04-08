@@ -16,7 +16,7 @@ if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]]; the
         CHECK_BRANCH=2
 fi
 
-if [[ $CHECK_BRANC == 2 ]];
+if [[ $CHECK_BRANCH == 2 ]];
 then
         echo "Master or release"
         exit 0
