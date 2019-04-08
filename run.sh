@@ -19,7 +19,6 @@ fi
 if [[ $CHECK_BRANCH == 2 ]];
 then
         echo "Master or release"
-        exit 0
 fi
 
 ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
