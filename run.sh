@@ -8,11 +8,20 @@ BRANCH=$WERCKER_GIT_BRANCH
 BRANCH=$(basename $BRANCH)
 BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
-CHECK_BRANCH=1
-if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
-        CHECK_BRANCH=0
+CHECK_BRANCH=0
+if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
+        CHECK_BRANCH=1
 fi
-echo "CHECK_BRANCH: $CHECK_BRANCH"
+if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]]; then
+        CHECK_BRANCH=2
+fi
+
+if [[ $CHECK_BRANC == 2 ]];
+then
+        echo "Master or release"
+        exit 0
+fi
+
 ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
 NR_ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+" | wc -l `
 NR_ESDT2=`echo $BODY| grep  -w -Eo "ESDT" | wc -l`
@@ -27,9 +36,9 @@ if [[ $NR_ESDT != 0 ]] ;
              echo $BODY
        fi
    else
-       if [[ $CHECK_BRANCH == 1 ]];
+       if [[ $CHECK_BRANCH == 0 ]];
           then
              echo "Found invalid branch $BRANCH and no valid message"
-             echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*"
+             echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*x"
        fi
 fi
