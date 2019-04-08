@@ -16,19 +16,20 @@ echo "CHECK_BRANCH: $CHECK_BRANCH"
 ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
 NR_ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+" | wc -l `
 NR_ESDT2=`echo $BODY| grep  -w -Eo "ESDT" | wc -l`
-if [[ $NR_ESDT != 0 ]];
+NR_NUMBERS=`echo $BODY|  grep -w -Eo "[0-9]+" | wc -l`
+if [[ $NR_ESDT != 0 ]] ;
    then
-      if [[ "$NR_ESDT" -eq "$NR_ESDT2" ]];
+      if [[ "$NR_ESDT" -eq "$NR_ESDT2" ]] && [[ "$NR_NUMBERS" -eq "$NR_ESDT" ]];
          then
              echo -e "Found valid ESDT in commit:\n$ESDT"
          else
-             echo -e "Found non valid ESDT. The format should be ESDT-[0-9]+"
+             echo -e "Found non valid ESDT. The format should be ESDT-[0-9]+ ESDT-[0-9\+"
              echo $BODY
        fi
    else
        if [[ $CHECK_BRANCH == 1 ]];
           then
              echo "Found invalid branch $BRANCH and no valid message"
-             echo "The format should be ESDT-[0-9]+"
+             echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*"
        fi
 fi
