@@ -37,8 +37,8 @@ else
             else
               if [[ $CHECK_BRANCH == 0 ]];
                  then
-                     echo "Found invalid branch $BRANCH and no valid tile $BODY"
-                     echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*"
+                     echo "Found invalid branch $BRANCH and no valid title $BODY"
+                     echo "The format should be ESDT-[0-9]+ (PR title or branch name) or ESDT-[0-9]+[-_]+.* (branch)"
                      exit 1
                  fi
         fi
