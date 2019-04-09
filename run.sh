@@ -30,14 +30,16 @@ else
                  then
                      echo -e "Found valid ESDT in commit:\n$ESDT"
               else
-                     echo -e "Found non valid ESDT. The format should be ESDT-[0-9]+ ESDT-[0-9\+"
+                     echo -e "Found non valid ESDT in title. The format should be ESDT-[0-9]+ ESDT-[0-9\+"
                      echo $BODY
+                     exit 1
               fi
             else
               if [[ $CHECK_BRANCH == 0 ]];
                  then
-                     echo "Found invalid branch $BRANCH and no valid message"
-                     echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*x"
+                     echo "Found invalid branch $BRANCH and no valid tile $BODY"
+                     echo "The format should be ESDT-[0-9]+ or ESDT-[0-9]+[-_]+.*"
+                     exit 1
                  fi
         fi
 
