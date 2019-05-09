@@ -9,6 +9,7 @@ BRANCH=$(basename $BRANCH)
 BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
 CHECK_BRANCH=0
+echo "Title: $BODY"
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
 fi
