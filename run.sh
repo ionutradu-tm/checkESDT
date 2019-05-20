@@ -3,7 +3,7 @@
 pushd $WERCKER_SOURCE_DIR
 BODY=`git log -1 --pretty='%s'`
 
-CODY2=`git log -2`
+BODY2=`git log -2`
 
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
@@ -12,6 +12,7 @@ BRANCH="${BRANCH^^}"
 BODY="${BODY^^}"
 CHECK_BRANCH=0
 echo "Title: $BODY"
+echo "Full: $BODY2"
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
 fi
