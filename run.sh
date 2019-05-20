@@ -3,6 +3,8 @@
 pushd $WERCKER_SOURCE_DIR
 BODY=`git log -1 --pretty='%s'`
 
+CODY2=`git log -2`
+
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
 BRANCH=$(basename $BRANCH)
