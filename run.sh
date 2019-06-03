@@ -28,7 +28,6 @@ if [[ $CHECK_BRANCH == 2 ]];
 then
         echo "Master or release"
 else
-        echo "TOKEN: $TOKEN"
         echo "REPO_USER: $REPO_USER"
         echo "REPO_NAME: $REPO_NAME"
         LAST_PR=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls | jq '.[0] .number')
