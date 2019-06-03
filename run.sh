@@ -1,18 +1,19 @@
 #!/bin/bash
 
 pushd $WERCKER_SOURCE_DIR
-BODY=`git log -1 --pretty='%s'`
 
-BODY2=`git log -2`
+REPO_USER=$WERCKER_CHECKESDT_REPO_USER
+REPO_NAME=$WERCKER_CHECKESDT_REPO_NAME
+TOKEN=$WERCKER_CHECKESDT_TOKEN
+
+COMMIT_MESSAGE=`git log -1 --pretty='%s'`
 
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
 BRANCH=$(basename $BRANCH)
 BRANCH="${BRANCH^^}"
-BODY="${BODY^^}"
 CHECK_BRANCH=0
-echo "Title: $BODY"
-echo "Full: $BODY2"
+
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
 fi
@@ -24,6 +25,19 @@ if [[ $CHECK_BRANCH == 2 ]];
 then
         echo "Master or release"
 else
+        LAST_PR=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls | jq '.[0] .number')
+        MIN_PR=$(( LAST_PR - 20))
+        for PR in `seq $LAST_PR -1 $MIN_PR`;
+        do
+            PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[0] .commit.message"| tr -d \")
+            if [[ $COMMIT_MESSAGE == $PR_MESSAGE ]]; then
+                break
+            fi
+        done
+
+        TITLE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR | jq ".title"| tr -d \")
+        echo "PR TITLE: $TITLE"
+        BODY="${TITLE^^}"
         ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
         NR_ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+" | wc -l `
         NR_ESDT2=`echo $BODY| grep  -w -Eo "ESDT" | wc -l`

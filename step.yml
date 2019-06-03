@@ -5,3 +5,13 @@ tags:
   - branch name
   - commit message
   - specific format
+properties:
+  - name: REPO_USER
+    type: string
+    required: true
+  - name: REPO_NAME
+    type: string
+    required: true
+  - name: TOKEN
+    type: string
+    required: true
