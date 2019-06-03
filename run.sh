@@ -2,9 +2,9 @@
 
 pushd $WERCKER_SOURCE_DIR
 
-REPO_USER=$WERCKER_CHECKESDT_REPO_USER
-REPO_NAME=$WERCKER_CHECKESDT_REPO_NAME
-TOKEN=$WERCKER_CHECKESDT_TOKEN
+REPO_USER=$WERCKER_CHECKE_SDT_REPO_USER
+REPO_NAME=$WERCKER_CHECK_ESDT_REPO_NAME
+TOKEN=$WERCKER_CHECK_ESDT_TOKEN
 
 #install jq
 apt-get -y update
@@ -30,7 +30,7 @@ then
 else
         echo "TOKEN: $TOKEN"
         echo "REPP_USER: $REPO_USER"
-        echo "REPO_NAME: REPO_NAME"
+        echo "REPO_NAME: $REPO_NAME"
         LAST_PR=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls | jq '.[0] .number')
         MIN_PR=$(( LAST_PR - 20))
         for PR in `seq $LAST_PR -1 $MIN_PR`;
@@ -40,7 +40,7 @@ else
                 break
             fi
         done
-
+        echo "PR: $PR"
         TITLE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR | jq ".title"| tr -d \")
         echo "PR TITLE: $TITLE"
         BODY="${TITLE^^}"
