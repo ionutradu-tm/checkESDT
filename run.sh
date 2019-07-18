@@ -9,7 +9,7 @@ TOKEN=$WERCKER_CHECK_ESDT_TOKEN
 #install jq
 apt-get -y update
 apt-get -y install jq
-COMMIT_MESSAGE=`git log -1 --pretty='%s'`
+COMMIT_MESSAGE=`git log -1 --pretty='%H'`
 
 BRANCH=$WERCKER_GIT_BRANCH
 # convert to uppercase
@@ -34,7 +34,7 @@ else
         MIN_PR=$(( LAST_PR - 20))
         for PR in `seq $LAST_PR -1 $MIN_PR`;
         do
-            PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[0] .commit.message"| tr -d \")
+            PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[0] .sha"| tr -d \")
             if [[ $COMMIT_MESSAGE == $PR_MESSAGE ]]; then
                 break
             fi
