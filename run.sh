@@ -20,7 +20,7 @@ CHECK_BRANCH=0
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
 fi
-if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+$ ]] || [[ $BRANCH == "NOCACHEREBUILD" ]]; then
+if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+$ ]] || [[ $BRANCH == "hotfix/NL_prospect_change" ]]; then
         CHECK_BRANCH=2
 fi
 
