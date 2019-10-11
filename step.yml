@@ -1,5 +1,5 @@
 name: check-esdt
-version: 1.0.39
+version: 1.0.40
 summary: Check if branch name and commit message contains a specific format (ESDT-[0-9]+
 tags:
   - branch name
