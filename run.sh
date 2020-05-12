@@ -36,9 +36,14 @@ else
         do
             PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[] .sha"| tr -d \"| tail -n 1)
             if [[ $COMMIT_MESSAGE == $PR_MESSAGE ]]; then
+                FOUND="1"
                 break
             fi
         done
+        if [[ "${FOUND}" != "1" ]];then
+          echo "The PR is not the last 20 PRs"
+          exit 1
+        fi
         echo "PR: $PR"
         TITLE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR | jq ".title"| tr -d \")
         echo "PR TITLE: $TITLE"
