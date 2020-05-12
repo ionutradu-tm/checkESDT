@@ -41,6 +41,7 @@ else
             fi
         done
         if [[ "${FOUND}" != "1" ]];then
+          echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}"
           echo "The PR is not the last 20 PRs"
           exit 1
         fi
