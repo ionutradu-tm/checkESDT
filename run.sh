@@ -34,7 +34,7 @@ else
         MIN_PR=$(( LAST_PR - 20))
         for PR in `seq $LAST_PR -1 $MIN_PR`;
         do
-            PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[0] .sha"| tr -d \"| tail -n 1)
+            PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[] .sha"| tr -d \"| tail -n 1)
             if [[ $COMMIT_MESSAGE == $PR_MESSAGE ]]; then
                 break
             fi
