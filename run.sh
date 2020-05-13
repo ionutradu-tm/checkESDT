@@ -31,10 +31,12 @@ else
         echo "REPO_USER: $REPO_USER"
         echo "REPO_NAME: $REPO_NAME"
         LAST_PR=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls | jq '.[0] .number')
+        echo "Latest PR: ${LAST_PR}"
         MIN_PR=$(( LAST_PR - 20))
         for PR in `seq $LAST_PR -1 $MIN_PR`;
         do
             PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[] .sha"| tr -d \"| tail -n 1)
+            echo "Latest commit for PR: ${PR} is ${PR_MESSAGE}"
             if [[ $COMMIT_MESSAGE == $PR_MESSAGE ]]; then
                 FOUND="1"
                 break
@@ -57,16 +59,16 @@ else
            then
               if [[ "$NR_ESDT" -eq "$NR_ESDT2" ]] && [[ "$NR_NUMBERS" -eq "$NR_ESDT" ]];
                  then
-                     echo -e "Found valid ESDT in commit:\n$ESDT"
+                     echo -e "Found valid ESDT in the commit:\n$ESDT"
               else
-                     echo -e "Found non valid ESDT in title. The format should be ESDT-[0-9]+ ESDT-[0-9\+"
+                     echo -e "Found non valid ESDT in the title. The format should be ESDT-[0-9]+ ESDT-[0-9\+"
                      echo $BODY
                      exit 1
               fi
             else
               if [[ $CHECK_BRANCH == 0 ]];
                  then
-                     echo "Found invalid branch $BRANCH and no valid title $BODY"
+                     echo "Found invalid branch name: $BRANCH and no valid title: $BODY"
                      echo "The format should be ESDT-[0-9]+ (PR title or branch name) or ESDT-[0-9]+[-_]+.* (branch)"
                      exit 1
                  fi
