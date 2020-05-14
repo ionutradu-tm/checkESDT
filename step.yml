@@ -5,6 +5,7 @@ tags:
   - branch name
   - commit message
   - specific format
+  - pull request check
 properties:
   - name: REPO_USER
     type: string
