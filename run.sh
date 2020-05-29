@@ -23,7 +23,7 @@ env
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
 fi
-if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+$ ]] || [[ $BRANCH == "MASTER-BPR" ]] || [[ $BRANCH =~ "^RELEASE-BPR-[0-9]+\.[0-9]+$" ]]; then
+if [[ "$BRANCH" == "MASTER" ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+\.[0-9]+$ ]] || [[ $BRANCH =~ ^RELEASE-[0-9]+$ ]] || [[ $BRANCH == "MASTER-BPR" ]] || [[ $BRANCH =~ "^RELEASE-BPR-[0-9]+\.[0-9]+$" ]] || [[ $BRANCH == "MASTER-REID" ]] || [[ $BRANCH =~ "^RELEASE-REID-[0-9]+\.[0-9]+$" ]]; then
         CHECK_BRANCH=2
 fi
 
