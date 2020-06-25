@@ -35,7 +35,7 @@ else
         echo "REPO_NAME: $REPO_NAME"
         LAST_PR=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls | jq '.[0] .number')
         echo "Latest PR: ${LAST_PR}"
-        MIN_PR=$(( LAST_PR - 20))
+        MIN_PR=$(( LAST_PR - 40))
         for PR in `seq $LAST_PR -1 $MIN_PR`;
         do
             PR_MESSAGE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR/commits | jq ".[] .sha"| tr -d \"| tail -n 1)
@@ -47,7 +47,7 @@ else
         done
         if [[ "${FOUND}" != "1" ]];then
           echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}"
-          echo "The PR is not the last 20 PRs"
+          echo "The PR is not the last 40 PRs"
           exit 1
         fi
         echo "PR: $PR"
