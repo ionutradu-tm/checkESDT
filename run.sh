@@ -17,8 +17,6 @@ BRANCH=$(basename $BRANCH)
 BRANCH="${BRANCH^^}"
 CHECK_BRANCH=0
 
-echo "Print env"
-env
 
 if [[ $BRANCH =~ ^ESDT-[0-9]+$ ]] || [[ $BRANCH =~ ^ESDT-[0-9]+[_-]+.*$ ]]; then
         CHECK_BRANCH=1
