@@ -45,36 +45,33 @@ else
         done
         if [[ "${FOUND}" == "1" ]];then
           echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}"
-
-          echo "The PR is not the last 40 PRs"
-          exit 1
-        fi
-        echo "PR: $PR"
-        TITLE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR | jq ".title"| tr -d \")
-        echo "PR TITLE: $TITLE"
-        BODY="${TITLE^^}"
-        ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
-        NR_ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+" | wc -l `
-        NR_ESDT2=`echo $BODY| grep  -w -Eo "ESDT" | wc -l`
-        NR_NUMBERS=`echo $BODY|  grep -w -Eo "[0-9]+" | wc -l`
-        if [[ $NR_ESDT != 0 ]] ;
-           then
-              if [[ "$NR_ESDT" -eq "$NR_ESDT2" ]] && [[ "$NR_NUMBERS" -eq "$NR_ESDT" ]];
-                 then
-                     echo -e "Found valid ESDT in the commit:\n$ESDT"
-
-              else
-                if [[ $CHECK_BRANCH == 0 ]];
+          echo "PR: $PR"
+          TITLE=$(curl -s -H "Authorization: token $TOKEN" https://api.github.com/repos/$REPO_USER/$REPO_NAME/pulls/$PR | jq ".title"| tr -d \")
+          echo "PR TITLE: $TITLE"
+          BODY="${TITLE^^}"
+          ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+"`
+          NR_ESDT=`echo $BODY| grep  -w -Eo "ESDT-[0-9]+" | wc -l `
+          NR_ESDT2=`echo $BODY| grep  -w -Eo "ESDT" | wc -l`
+          NR_NUMBERS=`echo $BODY|  grep -w -Eo "[0-9]+" | wc -l`
+          if [[ $NR_ESDT != 0 ]] ;
+             then
+                if [[ "$NR_ESDT" -eq "$NR_ESDT2" ]] && [[ "$NR_NUMBERS" -eq "$NR_ESDT" ]];
                    then
-                       echo "Found invalid branch name: $BRANCH and no valid title: $BODY"
-                       echo "The format should be ESDT-[0-9]+ (PR title or branch name) or ESDT-[0-9]+[-_]+.* (branch)"
-                       exit 1
-                   fi
-          fi
-        else
-          echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}"
-          echo "The PR is not the last 20 PRs"
+                       echo -e "Found valid ESDT in the commit:\n$ESDT"
 
+                else
+                  if [[ $CHECK_BRANCH == 0 ]];
+                     then
+                         echo "Found invalid branch name: $BRANCH and no valid title: $BODY"
+                         echo "The format should be ESDT-[0-9]+ (PR title or branch name) or ESDT-[0-9]+[-_]+.* (branch)"
+                         exit 1
+                     fi
+            fi
+          else
+            echo "COMMIT_MESSAGE: ${COMMIT_MESSAGE}"
+            echo "The PR is not the last 20 PRs"
+
+          fi
         fi
 fi
 

@@ -17,7 +17,7 @@ if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
   if [[ "${PREFIX_BRANCH}" != "." ]]; then
     if [[ ! "${PREFIX_BRANCH}" =~ ^(${FORMAT_PREFIX_BRANCH})$ ]]; then
       echo "Found invalid branch name: ${SOURCE_BRANCH}"
-      echo "The format should be ${FORMANT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
+      echo "The format should be ${FORMAT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
       exit 1
     fi
   fi
