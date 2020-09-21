@@ -24,7 +24,7 @@ if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
   # end check
 
   # check branch name suffix
-  if [[ ! "${SUFFIX_BRANCH}" =~ ^((${PROJECT_NAMES})+\-[0-9]+)$ ]]; then
+  if [[ ! "${SUFFIX_BRANCH}" =~ ^((${PROJECT_NAMES})+\-[0-9]+)$ ]] && [[ ! "${SUFFIX_BRANCH}" =~ ^((${PROJECT_NAMES})+\-[0-9]+)[_-]+.*$ ]]; then
     echo "Found invalid branch name: ${SOURCE_BRANCH}"
     echo "The format should be ${FORMANT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
     exit 2
