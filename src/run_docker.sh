@@ -9,7 +9,7 @@ echo "Allow branch names: ${ALLOW_SOURCE_BRANCHES}"
 
 shopt -s nocasematch
 PREFIX_BRANCH=$(dirname ${SOURCE_BRANCH})
-SUFFIX_BRANCH="$(basename ${BRANCH})"
+SUFFIX_BRANCH="$(basename ${SOURCE_BRANCH})"
 
 # allows master and release branches as source branch
 if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
@@ -29,6 +29,7 @@ if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
     echo "The format should be ${FORMANT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
     exit 2
   fi
+
   # check PR title
   NR_PROJECTS=$(echo ${PR_TITLE} | grep -w -Eo "(${PROJECT_NAMES})+-[0-9]+" | wc -l)
   NR_PROJECT_NAMES=$(echo ${PR_TITLE} | grep -w -Eo "(${PROJECT_NAMES})+" | wc -l)
@@ -39,5 +40,5 @@ if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
   fi
   # end check
 else
-  echo "Allowed source branches"
+  echo "Allowed source branches: ${SOURCE_BRANCH}"
 fi
