@@ -35,7 +35,8 @@ if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
   NR_PROJECT_NAMES=$(echo ${PR_TITLE} | grep -w -Eo "(${PROJECT_NAMES})+" | wc -l)
   NR_PROJECT_NUMBERS=$(echo ${PR_TITLE} | grep -w -Eo "[0-9]+" | wc -l)
   if [[ "${NR_PROJECT_NAMES}" -ne "${NR_PROJECT_NUMBERS}" ]] || [[ "${NR_PROJECTS}" -eq "0" ]]; then
-    echo "Found invalid PR title, the format should be (${PROJECT_NAME})+-[0-9]+ and no additional numbers are allowed"
+    echo "Found invalid PR title: ${PR_TITLE}"
+    echo "The format should be (${PROJECT_NAMES})+-[0-9]+ and no additional numbers are allowed"
     exit 3
   fi
   # end check
