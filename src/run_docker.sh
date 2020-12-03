@@ -14,22 +14,22 @@ SUFFIX_BRANCH="$(basename ${SOURCE_BRANCH})"
 # allows master and release branches as source branch
 if [[ ! "${SOURCE_BRANCH}" =~ ^(${ALLOW_SOURCE_BRANCHES})$ ]]; then
   # check branch name prefix
-  if [[ "${PREFIX_BRANCH}" != "." ]]; then
-    if [[ ! "${PREFIX_BRANCH}" =~ ^(${FORMAT_PREFIX_BRANCH})$ ]]; then
-      echo "***********************************************************"
-      echo "Found invalid branch name: ${SOURCE_BRANCH}"
-      echo "The format should be ${FORMAT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
-      echo "***********************************************************"
-      exit 1
+  if [[ ! "${PREFIX_BRANCH}" =~ ^(${FORMAT_PREFIX_BRANCH})$ ]]; then
+    echo "***********************************************************"
+    echo "Found invalid branch name: ${SOURCE_BRANCH}"
+    echo "The format should be ${FORMAT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+"
+    echo "${PROJECT_NAMES}-[0-9]+ is not allowed anymore"
+    echo "***********************************************************"
+    exit 1
     fi
-  fi
   # end check
 
   # check branch name suffix
   if [[ ! "${SUFFIX_BRANCH}" =~ ^((${PROJECT_NAMES})+\-[0-9]+)$ ]] && [[ ! "${SUFFIX_BRANCH}" =~ ^((${PROJECT_NAMES})+\-[0-9]+)[_-]+.*$ ]]; then
     echo "***********************************************************"
     echo "Found invalid branch name: ${SOURCE_BRANCH}"
-    echo "The format should be ${FORMANT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ or ${PROJECT_NAMES}-[0-9]+"
+    echo "The format should be ${FORMANT_PREFIX_BRANCH}/${PROJECT_NAMES}-[0-9]+ "
+    echo "${PROJECT_NAMES}-[0-9]+ is not allowed anymore"
     echo "***********************************************************"
     exit 2
   fi
